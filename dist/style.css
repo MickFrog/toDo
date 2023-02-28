@@ -12,3 +12,8 @@
 .header, .content, .footer { /*grid intructions*/
     grid-column: 1 / 3;
 }
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
