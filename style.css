@@ -1,0 +1,14 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+#container {
+    min-height: 100vh;
+    display: grid;
+    grid-template: min(10rem, 20%) 7fr min(3rem, 10%) / 1fr 4fr;
+}
+
+.header, .content, .footer { /*grid intructions*/
+    grid-column: 1 / 3;
+}
