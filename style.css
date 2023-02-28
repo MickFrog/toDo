@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
+:root {
+    --gen-font: 'Nunito', sans-serif;
+    --header-fontSize: 4rem;
+}
+
 * {
     margin: 0px;
     box-sizing: border-box;
@@ -7,6 +14,8 @@
     min-height: 100vh;
     display: grid;
     grid-template: min(10rem, 20%) 7fr min(3rem, 10%) / 1fr 4fr;
+    font-family: var(--gen-font);
+    
 }
 
 .header, .content, .footer { /*grid intructions*/
@@ -15,6 +24,12 @@
 
 .header {
     background-color: #363537; 
+    color: #F3DE8A;
+    font-size: var(--header-fontSize);
+
+    display: flex;
+    align-items: center;
+    padding-left: var(--header-fontSize);
 }
 
 .content {
