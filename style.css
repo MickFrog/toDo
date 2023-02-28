@@ -3,6 +3,9 @@
 :root {
     --gen-font: 'Nunito', sans-serif;
     --header-fontSize: 4rem;
+    --button-color: #EB9486;
+    --header-bg: #363537;
+    --sidebar-bg: #CEF7A0;
 }
 
 * {
@@ -18,7 +21,7 @@ button {
     border: 0px;
     margin-left: 2rem;
 
-    background-color: #EB9486;
+    background-color: var(--button-color);
     border-radius: 10px;
     
     display: flex;
@@ -43,7 +46,7 @@ button:hover {
 }
 
 .header {
-    background-color: #363537; 
+    background-color: var(--header-bg); 
     color: #F3DE8A;
     font-size: var(--header-fontSize);
 
@@ -61,7 +64,7 @@ button:hover {
 }
 
 .sideBar {
-    background-color: #CEF7A0;
+    background-color: var(--sidebar-bg);
     padding: 10px;
 
     display: flex;
@@ -70,5 +73,11 @@ button:hover {
 }
 
 .footer {
-    background-color: #363537;
+    background-color: var(--header-bg);
+    font-size: 1.5rem;
+    color: var(--button-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
