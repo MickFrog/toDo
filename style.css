@@ -10,11 +10,31 @@
     box-sizing: border-box;
 }
 
+button {
+    font-family: inherit;
+    font-size: inherit;
+    width: 70%;
+    padding: 5px;
+    border: 0px;
+    margin-left: 2rem;
+
+    background-color: #EB9486;
+    border-radius: 10px;
+    
+    display: flex;
+    align-items: center;
+}
+
+button:hover {
+    background-color: #E6EFE9;
+}
+
 #container {
     min-height: 100vh;
     display: grid;
     grid-template: min(10rem, 20%) 7fr min(3rem, 10%) / 1fr 4fr;
     font-family: var(--gen-font);
+    font-size: calc(var(--header-fontSize) / 2);
     
 }
 
@@ -42,6 +62,11 @@
 
 .sideBar {
     background-color: #CEF7A0;
+    padding: 10px;
+
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
 }
 
 .footer {
