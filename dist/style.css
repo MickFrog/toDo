@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 
-button {
+button, .taskViewer > div{
     font-family: inherit;
     font-size: 1.4rem;
     width: 70%;
@@ -26,6 +26,7 @@ button {
     
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
 button:hover {
@@ -53,6 +54,7 @@ button:hover {
     display: flex;
     align-items: center;
     padding-left: var(--header-fontSize);
+    gap: 1rem;
 }
 
 .content {
@@ -70,6 +72,20 @@ button:hover {
     display: flex;
     flex-flow: column;
     gap: 1rem;
+}
+
+.taskViewer {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+
+    padding: var(--header-fontSize);
+}
+
+.taskViewer > div {
+    justify-content: space-between;
+    background-color: #F3DE8A;
+    padding-left: 1rem;
 }
 
 .footer {
