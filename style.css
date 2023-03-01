@@ -106,8 +106,13 @@ button:hover, .project:hover {
 .inputBox {
     display: none;
     flex-flow: column;
+    font-size: 1.2rem;
+    background-color: #ccc;
     gap: 5px;
     width: 70%;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
 }
 
 .inputBox > input {
@@ -117,12 +122,13 @@ button:hover, .project:hover {
 
 .addBtns {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .addBtns > button {
-    width: 40%;
-    margin-left: 0px;
+    padding: 0px 5px;
+    width: fit-content;
 }
 
 .footer {
