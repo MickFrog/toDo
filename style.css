@@ -122,13 +122,14 @@ button:hover, .project:hover {
 
 .addBtns {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     gap: 1rem;
 }
 
 .addBtns > button {
     padding: 0px 5px;
-    width: fit-content;
+    width: 150px;
+    justify-content: center;
 }
 
 .footer {
