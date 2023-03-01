@@ -14,7 +14,7 @@
     box-sizing: border-box;
 }
 
-button, .taskViewer > div, .project {
+button, .task, .project {
     font-family: inherit;
     font-size: 1.4rem;
     width: 70%;
@@ -89,18 +89,27 @@ button:hover, .project:hover {
     flex-flow: column;
     gap: 1rem;
 
-    padding: var(--default-padding);
+    padding: 1rem;
 }
 
-.taskViewer > div, .project {
+.task, .project {
+    display: flex;
     justify-content: space-between;
     background-color: #F3DE8A;
     padding-left: 1rem;
 }
 
+.task > button {
+    width: fit-content;
+}
+
 .taskContainer > button {
     gap: 5px;
     width: 10rem;
+}
+
+.active {
+    background-color: #E6EFE9;
 }
 
 .inputBox {
