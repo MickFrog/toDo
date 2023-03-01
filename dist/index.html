@@ -37,17 +37,17 @@
             <!-- Get input for projects and task -->
             <div class="overlay">
                 <!-- get new project details  -->
-                <div class="inputBox" id="projectBox">
-                    <input type="text" id="newProject" placeholder="Project Name">
+                <form class="inputBox" id="projectBox">
+                    <input type="text" id="newProject" placeholder="Project Name" required>
                     <div class="addBtns">
-                        <button id="addPjt">Add</button>
+                        <button type="submit" id="addPjt">Add</button>
                         <button id="cancelPjt">Cancel</button>
                     </div>
-                </div>
+                </form>
                 
                 <!-- Get task details  -->
-                <div class="inputBox" id="taskBox">
-                    <input type="text" id="newTask" placeholder="Task Name">
+                <form class="inputBox" id="taskBox">
+                    <input type="text" id="newTask" placeholder="Task Name" required>
                     <div>
                         <label for="priority">Priority:</label>
                         <select name="priority" id="priority" >
@@ -57,10 +57,10 @@
                     </div>
                     <input type="date">
                     <div class="addBtns">
-                        <button id="addTask">Add</button>
+                        <button type="submit" id="addTask">Add</button>
                         <button id="cancelTask">Cancel</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         
