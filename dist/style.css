@@ -99,6 +99,29 @@ button:hover, .project:hover {
     width: 10rem;
 }
 
+.inputBox {
+    display: flex;
+    flex-flow: column;
+    margin-left: 2rem;
+    gap: 5px;
+    width: 70%;
+}
+
+.inputBox > input {
+    height: 2rem;
+    font-family: inherit;
+}
+
+.addBtns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addBtns > button {
+    width: 40%;
+    margin-left: 0px;
+}
+
 .footer {
     background-color: var(--header-bg);
     font-size: 1.2rem;
