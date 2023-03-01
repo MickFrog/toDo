@@ -14,6 +14,12 @@
     box-sizing: border-box;
 }
 
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
 button, .task, .project {
     font-family: inherit;
     font-size: 1.4rem;
@@ -101,6 +107,11 @@ button:hover, .project:hover {
 
 .task > button {
     width: fit-content;
+}
+
+.task > div {
+    display: flex;
+    align-items: center;
 }
 
 .taskContainer > button {
