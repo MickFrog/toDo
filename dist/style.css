@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 
-button, .taskViewer > div{
+button, .taskViewer > div, .project {
     font-family: inherit;
     font-size: 1.4rem;
     width: 70%;
@@ -29,7 +29,7 @@ button, .taskViewer > div{
     gap: 1rem;
 }
 
-button:hover {
+button:hover, .project:hover {
     background-color: #E6EFE9;
 }
 
@@ -74,6 +74,12 @@ button:hover {
     gap: 1rem;
 }
 
+.projectsList {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+
 .taskViewer {
     display: flex;
     flex-flow: column;
@@ -82,7 +88,7 @@ button:hover {
     padding: var(--header-fontSize);
 }
 
-.taskViewer > div {
+.taskViewer > div, .project {
     justify-content: space-between;
     background-color: #F3DE8A;
     padding-left: 1rem;
@@ -95,7 +101,7 @@ button:hover {
 
 .footer {
     background-color: var(--header-bg);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--button-color);
 
     display: flex;
