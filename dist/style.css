@@ -6,6 +6,7 @@
     --button-color: #EB9486;
     --header-bg: #363537;
     --sidebar-bg: #CEF7A0;
+    --default-padding: 2rem;
 }
 
 * {
@@ -19,7 +20,6 @@ button, .taskViewer > div, .project {
     width: 70%;
     padding: 5px;
     border: 0px;
-    margin-left: 2rem;
 
     background-color: var(--button-color);
     border-radius: 10px;
@@ -67,7 +67,7 @@ button:hover, .project:hover {
 
 .sideBar {
     background-color: var(--sidebar-bg);
-    padding: 10px;
+    padding: var(--default-padding);
 
     display: flex;
     flex-flow: column;
@@ -80,12 +80,16 @@ button:hover, .project:hover {
     gap: 1rem;
 }
 
+.taskContainer {
+    padding: var(--default-padding);
+}
+
 .taskViewer {
     display: flex;
     flex-flow: column;
     gap: 1rem;
 
-    padding: var(--header-fontSize);
+    padding: var(--default-padding);
 }
 
 .taskViewer > div, .project {
@@ -100,9 +104,8 @@ button:hover, .project:hover {
 }
 
 .inputBox {
-    display: flex;
+    display: none;
     flex-flow: column;
-    margin-left: 2rem;
     gap: 5px;
     width: 70%;
 }
