@@ -71,11 +71,21 @@ const taskBusiness = () => {
         duePara.textContent = newDue;
         newTaskDiv.appendChild(duePara);
 
-        let taskDeleteBtn = document.createElement('button');
-        taskDeleteBtn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
-        newTaskDiv.appendChild(taskDeleteBtn);
+        newTaskDiv.appendChild(addTaskDeleteBtn());
 
         taskView.appendChild(newTaskDiv);
+    }
+
+    const addTaskDeleteBtn = () => {
+        let btn = document.createElement('button');
+        btn.id = 'deleteTask';
+        btn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
+
+        btn.addEventListener('click', () => {
+            taskView.removeChild(btn.parentElement);
+        });
+
+        return btn;
     }
 
     return {addTask};
