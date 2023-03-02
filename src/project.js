@@ -1,8 +1,8 @@
 import Task from "./task.js";
 
-export default Project = (newName) => {
-    this.name = newName;
-    this.tasks = [];
+const Project = (newName) => {
+    let name = newName;
+    let tasks = [];
 
     const createTask = (taskName, taskPriority, taskDue) => {
         let newTask = Task(taskName, taskPriority, taskDue);
@@ -25,3 +25,5 @@ export default Project = (newName) => {
 
     return {name, createTask, getUnfinishedTasks};
 }
+
+export default Project;

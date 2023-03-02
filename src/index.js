@@ -3,7 +3,7 @@ import Project from "./project.js";
 
 const projectBusiness = () => {
     //Variables
-    this.projectsComp = document.querySelector('.projectsList');
+    const projectsComp = document.querySelector('.projectsList');
 
     //Fucntions
     const addProject = (pjctName) => {
@@ -14,7 +14,7 @@ const projectBusiness = () => {
         //Visual implementation
         let newPjct = document.createElement('div');
         newPjct.className = 'project';
-        newPjct.textContent = pjctName + ' (' + newProjectObj.getUnfinishedTasks() + ')';
+        newPjct.textContent = pjctName;
         activateListener(newPjct);
 
         projectsComp.appendChild(newPjct);
@@ -35,3 +35,36 @@ const projectBusiness = () => {
     return {addProject}
 }
 
+const taskBusiness = () => {
+
+}
+
+const formBusiness = (() => {
+    const projectForm = document.getElementById('projectBox');
+    const taskForm = document.getElementById('taskBox');
+    const overlay = document.querySelector('.overlay');
+
+    let ProjectController = projectBusiness();
+
+    projectForm.onsubmit = (event) => {
+        event.preventDefault();
+        ProjectController.addProject(projectForm.elements[0].value);
+        overlay.style.display = 'none';
+        projectForm.style.display = 'none';
+    };
+})();
+
+const domBusiness = (() => {
+    const projectAddBtn = document.getElementById('addPjct-Btn');
+    const overlay = document.querySelector('.overlay');
+    //forms
+    const projectForm = document.getElementById('projectBox');
+    const taskForm = document.getElementById('taskBox');
+
+    //Event Listeners
+    projectAddBtn.addEventListener('click', () => {
+        //display project form
+        overlay.style.display = 'flex';
+        projectForm.style.display = 'flex';
+    });
+})();

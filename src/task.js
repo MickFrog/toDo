@@ -1,4 +1,4 @@
-export default Task = (newName, newPriority, dueDate) => {
+const Task = (newName, newPriority, dueDate) => {
     this.name = newName;
     this.priority = newPriority;
     this.due = dueDate;
@@ -8,3 +8,5 @@ export default Task = (newName, newPriority, dueDate) => {
         return { name, priority, due, finished};
     }};
 };
+
+export default Task;
