@@ -15,9 +15,21 @@ const projectBusiness = () => {
         let newPjct = document.createElement('div');
         newPjct.className = 'project';
         newPjct.textContent = pjctName;
+        newPjct.appendChild(addDeleteBtn());
         activateListener(newPjct);
 
         projectsComp.appendChild(newPjct);
+    }
+
+    const addDeleteBtn = () => {
+        let btn = document.createElement('button');
+        btn.id = 'deletePjct';
+
+        btn.addEventListener('click', () => {
+            projectsComp.removeChild(btn.parentElement);
+        });
+
+        return btn;
     }
 
     const activateListener = (pjct) => {

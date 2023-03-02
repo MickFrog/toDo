@@ -86,6 +86,14 @@ button:hover, .project:hover {
     gap: 1rem;
 }
 
+#deletePjct {
+    width: 20px;
+}
+
+#deletePjct:hover {
+    background-color: var(--header-bg);
+}
+
 .taskContainer {
     padding: var(--default-padding);
 }
