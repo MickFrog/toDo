@@ -52,6 +52,11 @@ const formBusiness = (() => {
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
     };
+
+    projectForm.elements['cancelPjt'].addEventListener('click', () => {
+        overlay.style.display = 'none';
+        projectForm.style.display = 'none';
+    });
 })();
 
 const domBusiness = (() => {
