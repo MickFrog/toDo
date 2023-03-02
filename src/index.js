@@ -51,6 +51,7 @@ const formBusiness = (() => {
         ProjectController.addProject(projectForm.elements[0].value);
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
+        projectForm.elements[0].value = ''; //empty name field
     };
 
     projectForm.elements['cancelPjt'].addEventListener('click', () => {
