@@ -1,5 +1,6 @@
 import "./style.css";
 import Project from "./project.js";
+import Task from "./task";
 
 const projectBusiness = () => {
     //Variables
@@ -50,11 +51,26 @@ const projectBusiness = () => {
 const taskBusiness = () => {
     const taskView = document.querySelector('taskViewer');
 
-    const addTask = () => {
+    const addTask = (newName, newPriority, newDue) => {
         //Internal implementation
+        let newTaskObj = Task(newName, newPriority, newDue);
 
         //Visual implementation
+        let newTaskDiv = document.createElement('div');
+        newTaskDiv.className = 'task';
+
+        newTaskDiv.appendChild(document.createElement('input').type = 'checkbox');
+        newTaskDiv.appendChild(document.createTextNode(newName));
+        newTaskDiv.appendChild(document.createTextNode(newDue));
+
+        let taskDeleteBtn = document.createElement('button');
+        taskDeleteBtn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
+        newTaskDiv.appendChild(taskDeleteBtn);
+
+        taskView.appendChild(newTaskDiv);
     }
+
+    return {addTask};
 }
 
 const formBusiness = (() => {

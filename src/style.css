@@ -109,6 +109,7 @@ button:hover, .project:hover {
 .task, .project {
     display: flex;
     justify-content: space-between;
+    gap: 2rem;
     background-color: #F3DE8A;
     padding-left: 1rem;
 }
