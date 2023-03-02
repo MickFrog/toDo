@@ -49,7 +49,7 @@ const projectBusiness = () => {
 }
 
 const taskBusiness = () => {
-    const taskView = document.querySelector('taskViewer');
+    const taskView = document.querySelector('.taskViewer');
 
     const addTask = (newName, newPriority, newDue) => {
         //Internal implementation
@@ -59,9 +59,17 @@ const taskBusiness = () => {
         let newTaskDiv = document.createElement('div');
         newTaskDiv.className = 'task';
 
-        newTaskDiv.appendChild(document.createElement('input').type = 'checkbox');
-        newTaskDiv.appendChild(document.createTextNode(newName));
-        newTaskDiv.appendChild(document.createTextNode(newDue));
+        let inputElem = document.createElement('input');
+        inputElem.type = 'checkbox';
+        newTaskDiv.appendChild(inputElem);
+
+        let namePara = document.createElement('p');
+        namePara.textContent = newName;
+        newTaskDiv.appendChild(namePara);
+
+        let duePara = document.createElement('p');
+        duePara.textContent = newDue;
+        newTaskDiv.appendChild(duePara);
 
         let taskDeleteBtn = document.createElement('button');
         taskDeleteBtn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
@@ -79,6 +87,7 @@ const formBusiness = (() => {
     const overlay = document.querySelector('.overlay');
 
     let ProjectController = projectBusiness();
+    let TaskController = taskBusiness();
 
     projectForm.onsubmit = (event) => {
         event.preventDefault();
@@ -86,6 +95,14 @@ const formBusiness = (() => {
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
         projectForm.elements[0].value = ''; //empty name field
+    };
+
+    taskForm.onsubmit = (event) => {
+        event.preventDefault();
+        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, taskForm['taskDue'].value)
+        overlay.style.display = 'none';
+        taskForm.style.display = 'none';
+        taskForm.elements[0].value = ''; //empty name field
     };
 
     projectForm.elements['cancelPjt'].addEventListener('click', () => {

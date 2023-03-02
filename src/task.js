@@ -1,8 +1,8 @@
 const Task = (newName, newPriority, dueDate) => {
-    this.name = newName;
-    this.priority = newPriority;
-    this.due = dueDate;
-    this.finished = false;
+    let name = newName;
+    let priority = newPriority;
+    let due = dueDate;
+    let finished = false;
 
     return { get getTaskData() {
         return { name, priority, due, finished};
