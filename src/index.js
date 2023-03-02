@@ -48,7 +48,13 @@ const projectBusiness = () => {
 }
 
 const taskBusiness = () => {
+    const taskView = document.querySelector('taskViewer');
 
+    const addTask = () => {
+        //Internal implementation
+
+        //Visual implementation
+    }
 }
 
 const formBusiness = (() => {
@@ -70,10 +76,16 @@ const formBusiness = (() => {
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
     });
+
+    taskForm.elements['cancelTask'].addEventListener('click', () => {
+        overlay.style.display = 'none';
+        projectForm.style.display = 'none';
+    });
 })();
 
 const domBusiness = (() => {
     const projectAddBtn = document.getElementById('addPjct-Btn');
+    const taskAddBtn = document.getElementById('addTask-Btn')
     const overlay = document.querySelector('.overlay');
     //forms
     const projectForm = document.getElementById('projectBox');
@@ -84,5 +96,11 @@ const domBusiness = (() => {
         //display project form
         overlay.style.display = 'flex';
         projectForm.style.display = 'flex';
+    });
+
+    taskAddBtn.addEventListener('click', () => {
+        //display project form
+        overlay.style.display = 'flex';
+        taskForm.style.display = 'flex';
     });
 })();
