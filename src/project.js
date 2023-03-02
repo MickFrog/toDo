@@ -1,11 +1,11 @@
-import task from "./task.js";
+import Task from "./task.js";
 
 export default Project = (newName) => {
     this.name = newName;
     this.tasks = [];
 
     const createTask = (taskName, taskPriority, taskDue) => {
-        let newTask = task(taskName, taskPriority, taskDue);
+        let newTask = Task(taskName, taskPriority, taskDue);
 
         tasks.push(newTask);
     };
