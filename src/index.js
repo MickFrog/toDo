@@ -1,4 +1,5 @@
 import "./style.css";
+import { compareAsc, format } from 'date-fns';
 import Project from "./project.js";
 import Task from "./task";
 
@@ -156,4 +157,12 @@ const domBusiness = (() => {
         overlay.style.display = 'flex';
         taskForm.style.display = 'flex';
     });
+})();
+
+const pageLoad = (() => {
+    let ProjectController = projectBusiness();
+    let TaskController = taskBusiness();
+
+    ProjectController.addProject('Default');
+    TaskController.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
 })();
