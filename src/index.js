@@ -63,17 +63,27 @@ const taskBusiness = () => {
         inputElem.type = 'checkbox';
         newTaskDiv.appendChild(inputElem);
 
-        let namePara = document.createElement('p');
-        namePara.textContent = newName;
-        newTaskDiv.appendChild(namePara);
-
-        let duePara = document.createElement('p');
-        duePara.textContent = newDue;
-        newTaskDiv.appendChild(duePara);
+        newTaskDiv.appendChild(addText(newName));
+        newTaskDiv.appendChild(addText(newDue));
 
         newTaskDiv.appendChild(addTaskDeleteBtn());
+        urgentBg(newTaskDiv, newPriority);
 
         taskView.appendChild(newTaskDiv);
+    }
+
+    const addText = (newText) => {
+        let newPara = document.createElement('p');
+        newPara.textContent = newText;
+
+        return newPara
+    }
+
+    const urgentBg = (elem, elemPriority) => {
+        if (elemPriority == 'urgent') {
+            elem.style.backgroundColor = 'crimson';
+            return;
+        }
     }
 
     const addTaskDeleteBtn = () => {
