@@ -77,16 +77,11 @@ const taskBusiness = () => {
     const addCheckedTask = (checkElement) => {
         checkElement.addEventListener('change', (event) => {
             if (event.target.checked == true) {
-                let newText = '<del>' + checkElement.nextSibling.textContent + '</del>';
-                let newDate = '<del>' + checkElement.nextSibling.nextSibling.textContent + '</del>';
-                checkElement.nextSibling.innerHTML = newText;
-                checkElement.nextSibling.nextSibling.innerHTML = newDate;
-
+                checkElement.nextSibling.innerHTML = '<del>' + checkElement.nextSibling.textContent + '</del>';
+                checkElement.nextSibling.nextSibling.innerHTML = '<del>' + checkElement.nextSibling.nextSibling.textContent + '</del>';
             } else {
-                let newText = checkElement.nextSibling.textContent;
-                let newDate = checkElement.nextSibling.nextSibling.textContent;
-                checkElement.nextSibling.innerHTML = newText;
-                checkElement.nextSibling.nextSibling.innerHTML = newDate;
+                checkElement.nextSibling.innerHTML = checkElement.nextSibling.textContent;
+                checkElement.nextSibling.nextSibling.innerHTML = checkElement.nextSibling.nextSibling.textContent;
             }
         })
     }
