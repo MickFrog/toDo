@@ -7,7 +7,7 @@ const projectBusiness = () => {
     //Variables
     const projectsComp = document.querySelector('.projectsList');
 
-    //Fucntions
+    //Functions
     const addProject = (pjctName) => {
         //Internal implementation
         //....Write some code here
@@ -115,7 +115,7 @@ const formBusiness = (() => {
         ProjectController.addProject(projectForm.elements[0].value);
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
-        projectForm.elements[0].value = ''; //empty name field
+        projectForm.reset(); //empty form
     };
 
     taskForm.onsubmit = (event) => {
@@ -123,7 +123,7 @@ const formBusiness = (() => {
         TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, taskForm['taskDue'].value)
         overlay.style.display = 'none';
         taskForm.style.display = 'none';
-        taskForm.elements[0].value = ''; //empty name field
+        taskForm.elements[0].value = ''; //empty form
     };
 
     projectForm.elements['cancelPjt'].addEventListener('click', () => {
@@ -135,34 +135,29 @@ const formBusiness = (() => {
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
     });
+
+    return {projectForm, taskForm, overlay, ProjectController, TaskController};
 })();
 
 const domBusiness = (() => {
     const projectAddBtn = document.getElementById('addPjct-Btn');
     const taskAddBtn = document.getElementById('addTask-Btn')
-    const overlay = document.querySelector('.overlay');
-    //forms
-    const projectForm = document.getElementById('projectBox');
-    const taskForm = document.getElementById('taskBox');
 
     //Event Listeners
     projectAddBtn.addEventListener('click', () => {
         //display project form
-        overlay.style.display = 'flex';
-        projectForm.style.display = 'flex';
+        formBusiness.overlay.style.display = 'flex';
+        formBusiness.projectForm.style.display = 'flex';
     });
 
     taskAddBtn.addEventListener('click', () => {
-        //display project form
-        overlay.style.display = 'flex';
-        taskForm.style.display = 'flex';
+        //display task form
+        formBusiness.overlay.style.display = 'flex';
+        formBusiness.taskForm.style.display = 'flex';
     });
 })();
 
 const pageLoad = (() => {
-    let ProjectController = projectBusiness();
-    let TaskController = taskBusiness();
-
-    ProjectController.addProject('Default');
-    TaskController.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
+    formBusiness.ProjectController.addProject('Default');
+    formBusiness.TaskController.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
 })();
