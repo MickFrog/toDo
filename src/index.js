@@ -133,10 +133,10 @@ const formBusiness = (() => {
 
     taskForm.onsubmit = (event) => {
         event.preventDefault();
-        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, taskForm['taskDue'].value)
+        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, format(new Date(taskForm['taskDue'].valueAsDate), 'yyyy-MM-dd')) ;
         overlay.style.display = 'none';
         taskForm.style.display = 'none';
-        taskForm.elements[0].value = ''; //empty form
+        taskForm.reset(); //empty form
     };
 
     projectForm.elements['cancelPjt'].addEventListener('click', () => {
