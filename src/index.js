@@ -62,6 +62,7 @@ const taskBusiness = () => {
 
         let inputElem = document.createElement('input');
         inputElem.type = 'checkbox';
+        addCheckedTask(inputElem);
         newTaskDiv.appendChild(inputElem);
 
         newTaskDiv.appendChild(addText(newName));
@@ -71,6 +72,23 @@ const taskBusiness = () => {
         urgentBg(newTaskDiv, newPriority);
 
         taskView.appendChild(newTaskDiv);
+    }
+
+    const addCheckedTask = (checkElement) => {
+        checkElement.addEventListener('change', (event) => {
+            if (event.target.checked == true) {
+                let newText = '<del>' + checkElement.nextSibling.textContent + '</del>';
+                let newDate = '<del>' + checkElement.nextSibling.nextSibling.textContent + '</del>';
+                checkElement.nextSibling.innerHTML = newText;
+                checkElement.nextSibling.nextSibling.innerHTML = newDate;
+
+            } else {
+                let newText = checkElement.nextSibling.textContent;
+                let newDate = checkElement.nextSibling.nextSibling.textContent;
+                checkElement.nextSibling.innerHTML = newText;
+                checkElement.nextSibling.nextSibling.innerHTML = newDate;
+            }
+        })
     }
 
     const addText = (newText) => {
