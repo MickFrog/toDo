@@ -7,6 +7,10 @@ let activeProject = null;
 const projectBusiness = () => {
     //Variables
     const projectsComp = document.querySelector('.projectsList');
+    const taskHandler = taskBusiness();
+    const temp_taskView = taskHandler.taskView;
+    const addTaskBtn = document.getElementById('addTask-Btn');
+    
     let newProjectObj = null;
 
     //Functions
@@ -32,13 +36,24 @@ const projectBusiness = () => {
 
         btn.addEventListener('click', () => {
             projectsComp.removeChild(btn.parentElement);
+            activeProject.tasks = []; //clear tasks
+            activeProject = null;
+
+            //clear TaskView
+            while (temp_taskView.firstElementChild) {
+                temp_taskView.removeChild(temp_taskView.firstElementChild);
+            }
+
+            addTaskBtn.style.display = 'none'; //remove add task btn
         });
 
         return btn;
     }
 
     const activateListener = (pjct) => {
-        pjct.addEventListener('click', () => {
+        pjct.addEventListener('click', (event) => {
+            if (event.target.id == 'deletePjct') return; //prevent call when delete btn clicked
+
             activeProject = newProjectObj;
             for (let i = 0; i < projectsComp.children.length; i++) { //remove active status of other pjcts
                 [...projectsComp.children][i].classList.remove('active');
@@ -53,9 +68,6 @@ const projectBusiness = () => {
 
     const DisplayTasks = (P_Tasks) => {
         //clear TaskView
-        const taskHandler = taskBusiness();
-        const temp_taskView = taskHandler.taskView;
-
         while (temp_taskView.firstElementChild) {
             temp_taskView.removeChild(temp_taskView.firstElementChild);
         }
