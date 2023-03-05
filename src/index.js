@@ -3,20 +3,23 @@ import { compareAsc, format } from 'date-fns';
 import Project from "./project.js";
 import Task from "./task";
 
+let activeProject = null;
+
 const projectBusiness = () => {
     //Variables
     const projectsComp = document.querySelector('.projectsList');
+    let newProjectObj = null;
 
     //Functions
     const addProject = (pjctName) => {
         //Internal implementation
         //....Write some code here
-        let newProjectObj = Project(pjctName);
+        newProjectObj = Project(pjctName);
 
         //Visual implementation
         let newPjct = document.createElement('div');
         newPjct.className = 'project';
-        newPjct.textContent = pjctName;
+        newPjct.textContent = newProjectObj.name;
         newPjct.appendChild(addDeleteBtn());
         activateListener(newPjct);
 
@@ -36,6 +39,8 @@ const projectBusiness = () => {
 
     const activateListener = (pjct) => {
         pjct.addEventListener('click', () => {
+            activeProject = newProjectObj;
+            console.log(activeProject);
             for (let i = 0; i < projectsComp.children.length; i++) { //remove active status of other pjcts
                 [...projectsComp.children][i].classList.remove('active');
             }
@@ -46,7 +51,7 @@ const projectBusiness = () => {
         });
     }
 
-    return {addProject}
+    return {addProject, newProjectObj}
 }
 
 const taskBusiness = () => {
@@ -120,19 +125,18 @@ const formBusiness = (() => {
     const taskForm = document.getElementById('taskBox');
     const overlay = document.querySelector('.overlay');
 
-    let ProjectController = projectBusiness();
-    let TaskController = taskBusiness();
-
     projectForm.onsubmit = (event) => {
         event.preventDefault();
+        let ProjectController = projectBusiness();
         ProjectController.addProject(projectForm.elements[0].value);
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
         projectForm.reset(); //empty form
     };
-
+    
     taskForm.onsubmit = (event) => {
         event.preventDefault();
+        let TaskController = taskBusiness();
         TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, format(new Date(taskForm['taskDue'].valueAsDate), 'yyyy-MM-dd')) ;
         overlay.style.display = 'none';
         taskForm.style.display = 'none';
@@ -149,7 +153,7 @@ const formBusiness = (() => {
         projectForm.style.display = 'none';
     });
 
-    return {projectForm, taskForm, overlay, ProjectController, TaskController};
+    return {projectForm, taskForm, overlay,};
 })();
 
 const domBusiness = (() => {
@@ -171,6 +175,9 @@ const domBusiness = (() => {
 })();
 
 const pageLoad = (() => {
-    formBusiness.ProjectController.addProject('Default');
-    formBusiness.TaskController.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
+    let projectLoad = projectBusiness();
+    projectLoad.addProject('Default');
+    
+    let taskLoad = taskBusiness();
+    taskLoad.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
 })();
