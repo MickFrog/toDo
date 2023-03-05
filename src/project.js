@@ -23,7 +23,7 @@ const Project = (newName) => {
         return notDone;
     }
 
-    return {name, createTask, getUnfinishedTasks};
+    return {name, createTask, getUnfinishedTasks, tasks};
 }
 
 export default Project;

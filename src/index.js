@@ -24,6 +24,7 @@ const projectBusiness = () => {
         activateListener(newPjct);
 
         projectsComp.appendChild(newPjct);
+        return newPjct;
     }
 
     const addDeleteBtn = () => {
@@ -40,7 +41,6 @@ const projectBusiness = () => {
     const activateListener = (pjct) => {
         pjct.addEventListener('click', () => {
             activeProject = newProjectObj;
-            console.log(activeProject);
             for (let i = 0; i < projectsComp.children.length; i++) { //remove active status of other pjcts
                 [...projectsComp.children][i].classList.remove('active');
             }
@@ -59,7 +59,7 @@ const taskBusiness = () => {
 
     const addTask = (newName, newPriority, newDue) => {
         //Internal implementation
-        let newTaskObj = Task(newName, newPriority, newDue);
+        activeProject.createTask(newName, newPriority, newDue);
 
         //Visual implementation
         let newTaskDiv = document.createElement('div');
@@ -176,8 +176,8 @@ const domBusiness = (() => {
 
 const pageLoad = (() => {
     let projectLoad = projectBusiness();
-    projectLoad.addProject('Default');
-    
+    projectLoad.addProject('Default').dispatchEvent(new Event('click'));
+
     let taskLoad = taskBusiness();
     taskLoad.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
 })();
