@@ -99,11 +99,6 @@ const taskBusiness = () => {
         let newTaskDiv = document.createElement('div');
         newTaskDiv.className = 'task';
 
-        let inputElem = document.createElement('input');
-        inputElem.type = 'checkbox';
-        addCheckedTask(inputElem);
-        newTaskDiv.appendChild(inputElem);
-
         newTaskDiv.appendChild(addText(taskObj.getTaskData.name));
         newTaskDiv.appendChild(addText(taskObj.getTaskData.due));
 
@@ -113,18 +108,6 @@ const taskBusiness = () => {
         newTaskDiv.setAttribute('T_id', taskObj.id);
 
         taskView.appendChild(newTaskDiv);
-    }
-
-    const addCheckedTask = (checkElement) => {
-        checkElement.addEventListener('change', (event) => {
-            if (event.target.checked == true) {
-                checkElement.nextSibling.innerHTML = '<del>' + checkElement.nextSibling.textContent + '</del>';
-                checkElement.nextSibling.nextSibling.innerHTML = '<del>' + checkElement.nextSibling.nextSibling.textContent + '</del>';
-            } else {
-                checkElement.nextSibling.innerHTML = checkElement.nextSibling.textContent;
-                checkElement.nextSibling.nextSibling.innerHTML = checkElement.nextSibling.nextSibling.textContent;
-            }
-        })
     }
 
     const addText = (newText) => {
@@ -148,7 +131,6 @@ const taskBusiness = () => {
 
         btn.addEventListener('click', () => {
             activeProject.tasks = activeProject.tasks.filter(T => T.id != btn.parentElement.getAttribute('T_id'));
-            console.log(activeProject.tasks);
 
             taskView.removeChild(btn.parentElement);
         });
