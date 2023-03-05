@@ -10,7 +10,7 @@ const projectBusiness = () => {
     const taskHandler = taskBusiness();
     const temp_taskView = taskHandler.taskView;
     const addTaskBtn = document.getElementById('addTask-Btn');
-    
+
     let newProjectObj = null;
 
     //Functions
@@ -110,6 +110,8 @@ const taskBusiness = () => {
         newTaskDiv.appendChild(addTaskDeleteBtn());
         urgentBg(newTaskDiv, taskObj.getTaskData.priority);
 
+        newTaskDiv.setAttribute('T_id', taskObj.id);
+
         taskView.appendChild(newTaskDiv);
     }
 
@@ -145,6 +147,9 @@ const taskBusiness = () => {
         btn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
 
         btn.addEventListener('click', () => {
+            activeProject.tasks = activeProject.tasks.filter(T => T.id != btn.parentElement.getAttribute('T_id'));
+            console.log(activeProject.tasks);
+
             taskView.removeChild(btn.parentElement);
         });
 
