@@ -8,6 +8,7 @@ const Project = (newName) => {
         let newTask = Task(taskName, taskPriority, taskDue);
 
         tasks.push(newTask);
+        return newTask;
     };
 
     const getUnfinishedTasks = () => {

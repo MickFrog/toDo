@@ -1,7 +1,6 @@
 import "./style.css";
 import { compareAsc, format } from 'date-fns';
 import Project from "./project.js";
-import Task from "./task";
 
 let activeProject = null;
 
@@ -48,7 +47,26 @@ const projectBusiness = () => {
             pjct.classList.add('active');
 
             //Code to display tasks
+            DisplayTasks(activeProject.tasks);
         });
+    }
+
+    const DisplayTasks = (P_Tasks) => {
+        //clear TaskView
+        const taskHandler = taskBusiness();
+        const temp_taskView = taskHandler.taskView;
+
+        while (temp_taskView.firstElementChild) {
+            temp_taskView.removeChild(temp_taskView.firstElementChild);
+        }
+
+        //Draw the tasks
+        for (let i = 0; i < P_Tasks.length; i++) {
+            taskHandler.displayTask(P_Tasks[i]);
+        }
+
+        //Display the add-task btn
+        domBusiness.taskAddBtn.style.display = 'flex';
     }
 
     return {addProject, newProjectObj}
@@ -59,9 +77,13 @@ const taskBusiness = () => {
 
     const addTask = (newName, newPriority, newDue) => {
         //Internal implementation
-        activeProject.createTask(newName, newPriority, newDue);
+        let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
 
         //Visual implementation
+        displayTask(newBorn_Task);
+    }
+
+    const displayTask = (taskObj) => {
         let newTaskDiv = document.createElement('div');
         newTaskDiv.className = 'task';
 
@@ -70,11 +92,11 @@ const taskBusiness = () => {
         addCheckedTask(inputElem);
         newTaskDiv.appendChild(inputElem);
 
-        newTaskDiv.appendChild(addText(newName));
-        newTaskDiv.appendChild(addText(newDue));
+        newTaskDiv.appendChild(addText(taskObj.getTaskData.name));
+        newTaskDiv.appendChild(addText(taskObj.getTaskData.due));
 
         newTaskDiv.appendChild(addTaskDeleteBtn());
-        urgentBg(newTaskDiv, newPriority);
+        urgentBg(newTaskDiv, taskObj.getTaskData.priority);
 
         taskView.appendChild(newTaskDiv);
     }
@@ -117,7 +139,7 @@ const taskBusiness = () => {
         return btn;
     }
 
-    return {addTask};
+    return {addTask, displayTask, taskView};
 }
 
 const formBusiness = (() => {
@@ -172,6 +194,8 @@ const domBusiness = (() => {
         formBusiness.overlay.style.display = 'flex';
         formBusiness.taskForm.style.display = 'flex';
     });
+
+    return {taskAddBtn};
 })();
 
 const pageLoad = (() => {
