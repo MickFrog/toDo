@@ -16,7 +16,6 @@ const projectBusiness = () => {
     //Functions
     const addProject = (pjctName) => {
         //Internal implementation
-        //....Write some code here
         newProjectObj = Project(pjctName);
 
         //Visual implementation
@@ -72,7 +71,7 @@ const projectBusiness = () => {
             temp_taskView.removeChild(temp_taskView.firstElementChild);
         }
 
-        //Draw the tasks
+        //Display the tasks
         for (let i = 0; i < P_Tasks.length; i++) {
             taskHandler.displayTask(P_Tasks[i]);
         }
@@ -105,7 +104,7 @@ const taskBusiness = () => {
         newTaskDiv.appendChild(addTaskDeleteBtn());
         urgentBg(newTaskDiv, taskObj.getTaskData.priority);
 
-        newTaskDiv.setAttribute('T_id', taskObj.id);
+        newTaskDiv.setAttribute('T_id', taskObj.id); //custom id attribute on each task div
 
         taskView.appendChild(newTaskDiv);
     }
@@ -118,9 +117,8 @@ const taskBusiness = () => {
     }
 
     const urgentBg = (elem, elemPriority) => {
-        if (elemPriority == 'urgent') {
+        if (elemPriority == 'urgent') { //add urgency bg
             elem.style.backgroundColor = 'crimson';
-            return;
         }
     }
 
@@ -129,7 +127,7 @@ const taskBusiness = () => {
         btn.id = 'deleteTask';
         btn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
 
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', () => { //edit activeProject tasks array to remove deleted task
             activeProject.tasks = activeProject.tasks.filter(T => T.id != btn.parentElement.getAttribute('T_id'));
 
             taskView.removeChild(btn.parentElement);
@@ -146,7 +144,7 @@ const formBusiness = (() => {
     const taskForm = document.getElementById('taskBox');
     const overlay = document.querySelector('.overlay');
 
-    projectForm.onsubmit = (event) => {
+    projectForm.onsubmit = (event) => { //add project and remove form display
         event.preventDefault();
         let ProjectController = projectBusiness();
         ProjectController.addProject(projectForm.elements[0].value);
@@ -155,7 +153,7 @@ const formBusiness = (() => {
         projectForm.reset(); //empty form
     };
     
-    taskForm.onsubmit = (event) => {
+    taskForm.onsubmit = (event) => { //add task and remove form display
         event.preventDefault();
         let TaskController = taskBusiness();
         TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, format(new Date(taskForm['taskDue'].valueAsDate), 'yyyy-MM-dd')) ;
@@ -164,7 +162,7 @@ const formBusiness = (() => {
         taskForm.reset(); //empty form
     };
 
-    projectForm.elements['cancelPjt'].addEventListener('click', () => {
+    projectForm.elements['cancelPjt'].addEventListener('click', () => { //remove forms on cancel btn click
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
     });
@@ -177,7 +175,7 @@ const formBusiness = (() => {
     return {projectForm, taskForm, overlay,};
 })();
 
-const domBusiness = (() => {
+const domBusiness = (() => { // forms displayer
     const projectAddBtn = document.getElementById('addPjct-Btn');
     const taskAddBtn = document.getElementById('addTask-Btn')
 
@@ -197,7 +195,7 @@ const domBusiness = (() => {
     return {taskAddBtn};
 })();
 
-const pageLoad = (() => {
+const pageLoad = (() => { // load startup content
     let projectLoad = projectBusiness();
     projectLoad.addProject('Default').dispatchEvent(new Event('click'));
 
