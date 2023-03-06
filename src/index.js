@@ -1,8 +1,9 @@
 import "./style.css";
-import { compareAsc, format } from 'date-fns';
+import { compareAsc, lastDayOfWeek, format } from 'date-fns';
 import Project from "./project.js";
 
 let activeProject = null;
+let allProjects = [];
 
 const projectBusiness = () => {
     //Variables
@@ -17,6 +18,7 @@ const projectBusiness = () => {
     const addProject = (pjctName) => {
         //Internal implementation
         newProjectObj = Project(pjctName);
+        allProjects.push(newProjectObj);
 
         //Visual implementation
         let newPjct = document.createElement('div');
@@ -26,6 +28,7 @@ const projectBusiness = () => {
         activateListener(newPjct);
 
         projectsComp.appendChild(newPjct);
+        console.log(allProjects);
         return newPjct;
     }
 
@@ -35,7 +38,8 @@ const projectBusiness = () => {
 
         btn.addEventListener('click', () => {
             projectsComp.removeChild(btn.parentElement);
-            activeProject.tasks = []; //clear tasks
+            activeProject.tasks.length = 0; //clear tasks
+            allProjects = allProjects.filter(P => P != activeProject);
             activeProject = null;
 
             //clear TaskView
@@ -51,7 +55,10 @@ const projectBusiness = () => {
 
     const activateListener = (pjct) => {
         pjct.addEventListener('click', (event) => {
-            if (event.target.id == 'deletePjct') return; //prevent call when delete btn clicked
+            if (event.target.id == 'deletePjct') { //prevent call when delete btn clicked
+                activeProject = newProjectObj;
+                return; 
+            }
 
             activeProject = newProjectObj;
             for (let i = 0; i < projectsComp.children.length; i++) { //remove active status of other pjcts
