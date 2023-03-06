@@ -111,7 +111,7 @@ button:hover, .project:hover {
     justify-content: space-between;
     gap: 2rem;
     background-color: #F3DE8A;
-    padding-left: 1rem;
+    padding: 2px 2px;
 }
 
 .task > button {

@@ -54,15 +54,15 @@ const projectBusiness = () => {
 
     const activateListener = (pjct) => {
         pjct.addEventListener('click', (event) => {
-            if (event.target.id == 'deletePjct') { //prevent call when delete btn clicked
-                activeProject = newProjectObj;
-                return; 
-            }
-
             activeProject = newProjectObj;
+            if (event.target.id == 'deletePjct') return; //prevent call when delete btn clicked
+
             for (let i = 0; i < projectsComp.children.length; i++) { //remove active status of other pjcts
                 [...projectsComp.children][i].classList.remove('active');
             }
+            //remove active status from week and today tabs
+            domBusiness.todayTasks.classList.remove('active');
+            domBusiness.weekTasks.classList.remove('active');
 
             pjct.classList.add('active');
 
@@ -95,8 +95,10 @@ const taskBusiness = () => {
     const addTask = (newName, newPriority, newDue) => {
         //Internal implementation
         if (compareAsc(newDue, new Date()) == -1) { //prevent past dates
-            newDue = new Date();
+            let d = new Date()
+            newDue = new Date(d.getFullYear(), d.getMonth(), d.getDate());
         }
+        newDue = new Date(newDue.getFullYear(), newDue.getMonth(), newDue.getDate());
 
         let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
 
@@ -146,7 +148,7 @@ const taskBusiness = () => {
         return btn;
     }
 
-    return {addTask, displayTask, taskView};
+    return {addTask, displayTask, taskView, addText, urgentBg};
 }
 
 const formBusiness = (() => {
@@ -166,7 +168,9 @@ const formBusiness = (() => {
     taskForm.onsubmit = (event) => { //add task and remove form display
         event.preventDefault();
         let TaskController = taskBusiness();
-        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, new Date(taskForm['taskDue'].valueAsDate)) ;
+
+        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, new Date(taskForm['taskDue'].valueAsDate));
+
         overlay.style.display = 'none';
         taskForm.style.display = 'none';
         taskForm.reset(); //empty form
@@ -185,24 +189,63 @@ const formBusiness = (() => {
     return {projectForm, taskForm, overlay,};
 })();
 
-const domBusiness = (() => { // forms displayer
+const domBusiness = (() => {
     const projectAddBtn = document.getElementById('addPjct-Btn');
-    const taskAddBtn = document.getElementById('addTask-Btn')
+    const taskAddBtn = document.getElementById('addTask-Btn');
+    //week buttons
+    const todayTasks = document.getElementById('todayTasks');
+    const weekTasks = document.getElementById('weekTasks');
+    const projectsTab = document.querySelector('.projectsList')
+    const taskV = taskBusiness();
 
     //Event Listeners
-    projectAddBtn.addEventListener('click', () => {
-        //display project form
+    projectAddBtn.addEventListener('click', () => { //display project form
         formBusiness.overlay.style.display = 'flex';
         formBusiness.projectForm.style.display = 'flex';
     });
 
-    taskAddBtn.addEventListener('click', () => {
-        //display task form
+    taskAddBtn.addEventListener('click', () => { //display task form
         formBusiness.overlay.style.display = 'flex';
         formBusiness.taskForm.style.display = 'flex';
     });
 
-    return {taskAddBtn};
+    todayTasks.addEventListener('click', () => {
+        setUpView(todayTasks);
+        let d = new Date();
+
+        for (let i = 0; i < allProjects.length; i++) {
+            for (let j = 0; j < allProjects[i].tasks.length; j++) {
+                if (compareAsc(allProjects[i].tasks[j].getTaskData.due, new Date(d.getFullYear(), d.getMonth(), d.getDate())) == 0) {
+                    displayGottenTasks(allProjects[i].name, allProjects[i].tasks[j]);
+                }
+            }
+        }
+    });
+
+    const setUpView = (component) => {
+        document.getElementById('addTask-Btn').style.display = 'none';
+        for (let i = 0; i < projectsTab.children.length; i++) { //remove active status of other pjcts
+            [...projectsTab.children][i].classList.remove('active');
+        }
+        component.classList.add('active');
+
+        while (taskV.taskView.firstElementChild) { //clear TaskView
+            taskV.taskView.removeChild(taskV.taskView.firstElementChild);
+        }
+    }
+
+    const displayGottenTasks = (projectName, tObj) => {
+        let newTaskDiv = document.createElement('div');
+        newTaskDiv.className = 'task';
+    
+        newTaskDiv.appendChild(taskV.addText(tObj.getTaskData.name + ' (' + projectName + ')'));
+    
+        taskV.urgentBg(newTaskDiv, tObj.getTaskData.priority);
+    
+        taskV.taskView.appendChild(newTaskDiv);
+    }
+
+    return {taskAddBtn, todayTasks, weekTasks};
 })();
 
 const pageLoad = (() => { // load startup content
