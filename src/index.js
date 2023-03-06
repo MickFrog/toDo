@@ -28,7 +28,6 @@ const projectBusiness = () => {
         activateListener(newPjct);
 
         projectsComp.appendChild(newPjct);
-        console.log(allProjects);
         return newPjct;
     }
 
@@ -95,6 +94,10 @@ const taskBusiness = () => {
 
     const addTask = (newName, newPriority, newDue) => {
         //Internal implementation
+        if (compareAsc(newDue, new Date()) == -1) { //prevent past dates
+            newDue = new Date();
+        }
+
         let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
 
         //Visual implementation
@@ -106,7 +109,7 @@ const taskBusiness = () => {
         newTaskDiv.className = 'task';
 
         newTaskDiv.appendChild(addText(taskObj.getTaskData.name));
-        newTaskDiv.appendChild(addText(taskObj.getTaskData.due));
+        newTaskDiv.appendChild(addText(format(taskObj.getTaskData.due, 'yyyy-MM-dd')));
 
         newTaskDiv.appendChild(addTaskDeleteBtn());
         urgentBg(newTaskDiv, taskObj.getTaskData.priority);
@@ -163,7 +166,7 @@ const formBusiness = (() => {
     taskForm.onsubmit = (event) => { //add task and remove form display
         event.preventDefault();
         let TaskController = taskBusiness();
-        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, format(new Date(taskForm['taskDue'].valueAsDate), 'yyyy-MM-dd')) ;
+        TaskController.addTask(taskForm['newTask'].value, taskForm['priority'].value, new Date(taskForm['taskDue'].valueAsDate)) ;
         overlay.style.display = 'none';
         taskForm.style.display = 'none';
         taskForm.reset(); //empty form
@@ -207,5 +210,5 @@ const pageLoad = (() => { // load startup content
     projectLoad.addProject('Default').dispatchEvent(new Event('click'));
 
     let taskLoad = taskBusiness();
-    taskLoad.addTask('Code all night', 'normal', format(new Date(Date()), 'yyyy-MM-dd') );
+    taskLoad.addTask('Code all night', 'normal', new Date());
 })();
