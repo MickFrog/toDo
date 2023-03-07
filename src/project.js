@@ -8,10 +8,14 @@ const Project = (newName) => {
     const createTask = (taskName, taskPriority, taskDue) => {
         let newTask = Task(taskName, taskPriority, taskDue);
         newTask_ID++;
-        newTask.id = 'E' + (newTask_ID);
+        newTask.id = 'E' + newTask_ID;
 
         tasks.push(newTask);
         return newTask;
+    };
+
+    const removeTask = (Taskid) => {
+        tasks = tasks.filter(T => T.id != Taskid);
     };
 
     const getUnfinishedTasks = () => {
@@ -27,7 +31,9 @@ const Project = (newName) => {
         return notDone;
     }
 
-    return {name, createTask, getUnfinishedTasks, tasks};
+    return {name, createTask, get tasks() {
+        return tasks;
+    }, removeTask};
 }
 
 export default Project;

@@ -101,6 +101,7 @@ const taskBusiness = () => {
         newDue = new Date(newDue.getFullYear(), newDue.getMonth(), newDue.getDate());
 
         let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
+        console.log(activeProject.tasks)
 
         //Visual implementation
         displayTask(newBorn_Task);
@@ -140,7 +141,8 @@ const taskBusiness = () => {
         btn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
 
         btn.addEventListener('click', () => { //edit activeProject tasks array to remove deleted task
-            activeProject.tasks = activeProject.tasks.filter(T => T.id != btn.parentElement.getAttribute('T_id'));
+            activeProject.removeTask(btn.parentElement.getAttribute('T_id'));
+            console.log(activeProject.tasks);
 
             taskView.removeChild(btn.parentElement);
         });
@@ -183,7 +185,7 @@ const formBusiness = (() => {
 
     taskForm.elements['cancelTask'].addEventListener('click', () => {
         overlay.style.display = 'none';
-        projectForm.style.display = 'none';
+        taskForm.style.display = 'none';
     });
 
     return {projectForm, taskForm, overlay,};
