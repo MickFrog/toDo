@@ -198,6 +198,8 @@ const domBusiness = (() => {
     const projectsTab = document.querySelector('.projectsList')
     const taskV = taskBusiness();
 
+    let tempDate = new Date(); //variable
+
     //Event Listeners
     projectAddBtn.addEventListener('click', () => { //display project form
         formBusiness.overlay.style.display = 'flex';
@@ -211,11 +213,24 @@ const domBusiness = (() => {
 
     todayTasks.addEventListener('click', () => {
         setUpView(todayTasks);
-        let d = new Date();
+        weekTasks.classList.remove('active');
 
         for (let i = 0; i < allProjects.length; i++) {
             for (let j = 0; j < allProjects[i].tasks.length; j++) {
-                if (compareAsc(allProjects[i].tasks[j].getTaskData.due, new Date(d.getFullYear(), d.getMonth(), d.getDate())) == 0) {
+                if (compareAsc(allProjects[i].tasks[j].getTaskData.due, new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())) == 0) {
+                    displayGottenTasks(allProjects[i].name, allProjects[i].tasks[j]);
+                }
+            }
+        }
+    });
+
+    weekTasks.addEventListener('click', () => {
+        setUpView(weekTasks);
+        todayTasks.classList.remove('active');
+
+        for (let i = 0; i < allProjects.length; i++) {
+            for (let j = 0; j < allProjects[i].tasks.length; j++) {
+                if (compareAsc(allProjects[i].tasks[j].getTaskData.due, lastDayOfWeek(tempDate)) != 1) {
                     displayGottenTasks(allProjects[i].name, allProjects[i].tasks[j]);
                 }
             }
