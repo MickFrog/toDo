@@ -130,7 +130,7 @@ const taskBusiness = () => {
 
     const urgentBg = (elem, elemPriority) => {
         if (elemPriority == 'urgent') { //add urgency bg
-            elem.style.backgroundColor = 'crimson';
+            elem.style.backgroundColor = '#E5C2C0';
         }
     }
 
