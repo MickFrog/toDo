@@ -41,8 +41,7 @@ const projectBusiness = () => {
             allProjects = allProjects.filter(P => P != activeProject);
             activeProject = null;
 
-            //clear TaskView
-            while (temp_taskView.firstElementChild) {
+            while (temp_taskView.firstElementChild) { //clear TaskView
                 temp_taskView.removeChild(temp_taskView.firstElementChild);
             }
 
@@ -66,8 +65,7 @@ const projectBusiness = () => {
 
             pjct.classList.add('active');
 
-            //Code to display tasks
-            DisplayTasks(activeProject.tasks);
+            DisplayTasks(activeProject.tasks); //Code to display tasks
         });
     }
 
@@ -77,13 +75,11 @@ const projectBusiness = () => {
             temp_taskView.removeChild(temp_taskView.firstElementChild);
         }
 
-        //Display the tasks
-        for (let i = 0; i < P_Tasks.length; i++) {
+        for (let i = 0; i < P_Tasks.length; i++) { //Display the tasks
             taskHandler.displayTask(P_Tasks[i]);
         }
-
-        //Display the add-task btn
-        domBusiness.taskAddBtn.style.display = 'flex';
+        
+        domBusiness.taskAddBtn.style.display = 'flex'; //Display the add-task btn
     }
 
     return {addProject, newProjectObj}
@@ -164,7 +160,7 @@ const formBusiness = (() => {
         ProjectController.addProject(projectForm.elements[0].value);
         overlay.style.display = 'none';
         projectForm.style.display = 'none';
-        projectForm.reset(); //empty form
+        projectForm.reset();
     };
     
     taskForm.onsubmit = (event) => { //add task and remove form display
@@ -175,7 +171,7 @@ const formBusiness = (() => {
 
         overlay.style.display = 'none';
         taskForm.style.display = 'none';
-        taskForm.reset(); //empty form
+        taskForm.reset();
     };
 
     projectForm.elements['cancelPjt'].addEventListener('click', () => { //remove forms on cancel btn click
@@ -194,7 +190,6 @@ const formBusiness = (() => {
 const domBusiness = (() => {
     const projectAddBtn = document.getElementById('addPjct-Btn');
     const taskAddBtn = document.getElementById('addTask-Btn');
-    //week buttons
     const todayTasks = document.getElementById('todayTasks');
     const weekTasks = document.getElementById('weekTasks');
     const projectsTab = document.querySelector('.projectsList')
