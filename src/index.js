@@ -1,9 +1,18 @@
 import "./style.css";
 import { compareAsc, lastDayOfWeek, format } from 'date-fns';
+import serializeJavascript from "serialize-javascript";
 import Project from "./project.js";
 
 let activeProject = null;
 let allProjects = [];
+
+const Utility = (() => {
+    const deserialize = (serJs) => {
+        return eval('(' + serJs + ')');
+    }
+
+    return {deserialize};
+})();
 
 const projectBusiness = () => {
     //Variables
@@ -97,10 +106,8 @@ const taskBusiness = () => {
         newDue = new Date(newDue.getFullYear(), newDue.getMonth(), newDue.getDate());
 
         let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
-        console.log(activeProject.tasks)
 
-        //Visual implementation
-        displayTask(newBorn_Task);
+        displayTask(newBorn_Task); //Visual implementation
     }
 
     const displayTask = (taskObj) => {

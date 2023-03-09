@@ -18,19 +18,6 @@ const Project = (newName) => {
         tasks = tasks.filter(T => T.id != Taskid);
     };
 
-    const getUnfinishedTasks = () => {
-        let notDone = 0;
-
-        //Write code here
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].getTaskData().finished == false) {
-                notDone++;
-            }
-        }
-
-        return notDone;
-    }
-
     return {name, createTask, get tasks() {
         return tasks;
     }, removeTask};
