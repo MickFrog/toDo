@@ -11,7 +11,11 @@ const Utility = (() => {
         return eval('(' + serJs + ')');
     }
 
-    return {deserialize};
+    const updateLocal_Storage = () => {
+        localStorage.setItem('allProjects', serializeJavascript(allProjects));
+    }
+
+    return {deserialize, updateLocal_Storage};
 })();
 
 const projectBusiness = () => {
@@ -28,6 +32,7 @@ const projectBusiness = () => {
         //Internal implementation
         newProjectObj = Project(pjctName);
         allProjects.push(newProjectObj);
+        Utility.updateLocal_Storage();
 
         //Visual implementation
         let newPjct = document.createElement('div');
@@ -49,6 +54,7 @@ const projectBusiness = () => {
             activeProject.tasks.length = 0; //clear tasks
             allProjects = allProjects.filter(P => P != activeProject);
             activeProject = null;
+            Utility.updateLocal_Storage();
 
             while (temp_taskView.firstElementChild) { //clear TaskView
                 temp_taskView.removeChild(temp_taskView.firstElementChild);
@@ -106,6 +112,7 @@ const taskBusiness = () => {
         newDue = new Date(newDue.getFullYear(), newDue.getMonth(), newDue.getDate());
 
         let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
+        Utility.updateLocal_Storage();
 
         displayTask(newBorn_Task); //Visual implementation
     }
@@ -145,7 +152,7 @@ const taskBusiness = () => {
 
         btn.addEventListener('click', () => { //edit activeProject tasks array to remove deleted task
             activeProject.removeTask(btn.parentElement.getAttribute('T_id'));
-            console.log(activeProject.tasks);
+            Utility.updateLocal_Storage();
 
             taskView.removeChild(btn.parentElement);
         });
@@ -268,9 +275,14 @@ const domBusiness = (() => {
 })();
 
 const pageLoad = (() => { // load startup content
+    if(localStorage.getItem('allProjects')) { //load previous projects if existent
+        // console.log(Utility.deserialize(localStorage.getItem('allProjects')));
+    }
+
     let projectLoad = projectBusiness();
     projectLoad.addProject('Default').dispatchEvent(new Event('click'));
 
     let taskLoad = taskBusiness();
     taskLoad.addTask('Code all night', 'normal', new Date());
+
 })();
