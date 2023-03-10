@@ -7,11 +7,23 @@ let activeProject = null;
 let allProjects = [];
 
 const Utility = (() => {
+    const isLocalStorageAvailable = () => {
+        let test = 'test';
+        try {
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+
     const deserialize = (serJs) => {
         return eval('(' + serJs + ')');
     }
 
     const updateLocal_Storage = () => {
+        if (!isLocalStorageAvailable()) return;
         localStorage.setItem('allProjects', serializeJavascript(allProjects));
     }
 
