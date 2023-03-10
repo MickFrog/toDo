@@ -171,7 +171,7 @@ const taskBusiness = () => {
     const addTaskDeleteBtn = () => {
         let btn = document.createElement('button');
         btn.id = 'deleteTask';
-        btn.innerHTML = '<img src="../src/images/delete.svg" alt="deleteBtn">';
+        btn.innerHTML = '<img src="./images/delete.svg" alt="deleteBtn">';
 
         btn.addEventListener('click', () => { //edit activeProject tasks array to remove deleted task
             activeProject.removeTask(btn.parentElement.getAttribute('T_id'));
