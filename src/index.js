@@ -18,16 +18,14 @@ const Utility = (() => {
     return {deserialize, updateLocal_Storage};
 })();
 
-const projectBusiness = () => {
-    //Variables
+const projectBusiness = (projectObj = null) => {
     const projectsComp = document.querySelector('.projectsList');
     const taskHandler = taskBusiness();
     const temp_taskView = taskHandler.taskView;
     const addTaskBtn = document.getElementById('addTask-Btn');
 
-    let newProjectObj = null;
+    let newProjectObj = projectObj;
 
-    //Functions
     const addProject = (pjctName) => {
         //Internal implementation
         newProjectObj = Project(pjctName);
@@ -35,14 +33,27 @@ const projectBusiness = () => {
         Utility.updateLocal_Storage();
 
         //Visual implementation
-        let newPjct = document.createElement('div');
-        newPjct.className = 'project';
-        newPjct.textContent = newProjectObj.name;
-        newPjct.appendChild(addDeleteBtn());
-        activateListener(newPjct);
-
-        projectsComp.appendChild(newPjct);
+        let newPjct = displayProject();
         return newPjct;
+    }
+
+    const addOldProject = () => {
+        allProjects.push(newProjectObj);
+        Utility.updateLocal_Storage();
+
+        let newPjct = displayProject();
+        return newPjct;
+    }
+
+    const displayProject = () => {
+        let projectDiv = document.createElement('div');
+        projectDiv.className = 'project';
+        projectDiv.textContent = newProjectObj.name;
+        projectDiv.appendChild(addDeleteBtn());
+        activateListener(projectDiv);
+
+        projectsComp.appendChild(projectDiv);
+        return projectDiv;
     }
 
     const addDeleteBtn = () => {
@@ -97,7 +108,7 @@ const projectBusiness = () => {
         domBusiness.taskAddBtn.style.display = 'flex'; //Display the add-task btn
     }
 
-    return {addProject, newProjectObj}
+    return {addProject, addOldProject, newProjectObj, displayProject};
 }
 
 const taskBusiness = () => {
@@ -274,15 +285,28 @@ const domBusiness = (() => {
     return {taskAddBtn, todayTasks, weekTasks};
 })();
 
-const pageLoad = (() => { // load startup content
+const pageLoad = (() => { // load startup content 
     if(localStorage.getItem('allProjects')) { //load previous projects if existent
-        // console.log(Utility.deserialize(localStorage.getItem('allProjects')));
-    }
+        let restoredProjects = Utility.deserialize(localStorage.getItem('allProjects'));
+        
+        if (restoredProjects.length != 0) {
+            let lastProject;           
+            for (let i = 0; i < restoredProjects.length; i++) { //restore each old project, reset its tasks, and taskID num
+                let tempProject = Project(restoredProjects[i].name)
+                tempProject.tasks = restoredProjects[i].tasks;
+                tempProject.newTask_ID = restoredProjects[i].newTask_ID;
+    
+                let restored_Project = projectBusiness(tempProject);
+                lastProject = restored_Project.addOldProject();
+            }
+            lastProject.dispatchEvent(new Event('click'));
+            return;
+        }
+    } 
 
     let projectLoad = projectBusiness();
     projectLoad.addProject('Default').dispatchEvent(new Event('click'));
 
     let taskLoad = taskBusiness();
     taskLoad.addTask('Code all night', 'normal', new Date());
-
 })();

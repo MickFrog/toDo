@@ -18,9 +18,14 @@ const Project = (newName) => {
         tasks = tasks.filter(T => T.id != Taskid);
     };
 
-    return {name, createTask, get tasks() {
-        return tasks;
-    }, removeTask};
+    return {name, createTask, removeTask, 
+        get tasks() { return tasks; },
+        get newTask_ID() { return newTask_ID; },
+
+        set tasks(newT) { tasks = newT; }, 
+        set newTask_ID(start) { newTask_ID = start; }, 
+        
+    };
 }
 
 export default Project;
