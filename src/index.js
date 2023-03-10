@@ -1,7 +1,7 @@
 import "./style.css";
 import { compareAsc, lastDayOfWeek, format } from 'date-fns';
 import serializeJavascript from "serialize-javascript";
-import Project from "./project.js";
+import Project from "./modules/project.js";
 
 let activeProject = null;
 let allProjects = [];
