@@ -136,11 +136,6 @@ const taskBusiness = () => {
 
   const addTask = (newName, newPriority, newDue) => {
     //Internal implementation
-    if (compareAsc(newDue, new Date()) == -1) {
-      //prevent past dates
-      let d = new Date();
-      newDue = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    }
     newDue = new Date(
       newDue.getFullYear(),
       newDue.getMonth(),
@@ -150,7 +145,8 @@ const taskBusiness = () => {
     let newBorn_Task = activeProject.createTask(newName, newPriority, newDue);
     Utility.updateLocal_Storage();
 
-    displayTask(newBorn_Task); //Visual implementation
+    //Visual implementation
+    displayTask(newBorn_Task);
   };
 
   const displayTask = (taskObj) => {
@@ -341,7 +337,8 @@ const domBusiness = (() => {
   return { taskAddBtn, todayTasks, weekTasks };
 })();
 
-const pageLoad = (() => {
+// Initialize the page
+(() => {
   // load startup content
   if (localStorage.getItem("allProjects")) {
     //load previous projects if existent
